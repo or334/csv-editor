@@ -1,0 +1,48 @@
+<h3>Hello and welcome to our mini-backoffice!</h3>
+<p>Here you can see a list of all the current working persons at Oolo!</p>
+<p>If you'd like to have some fun, we're offering you an option to edit the workers names :)</p>
+<p>In order to do that, please click on the 'edit' button above the table.</p>
+
+<button mat-flat-button color="primary" [disabled]="isEditMode" (click)="toggleEditMode()">Edit</button>
+<button mat-flat-button color="accent" [disabled]="!isEditMode" (click)="saveChanges()">Save</button>
+<div *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="!isEditMode; else editPlace">
+          {{element.firstName}}
+        </span>
+        <ng-template #editPlace>
+          <input matInput
+          [value]="element.firstName"
+          min="1" max="50"
+          [(ngModel)]="element.firstName">
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="!isEditMode; else editPlace">
+          {{element.lastName}}
+        </span>
+        <ng-template #editPlace>
+          <input matInput
+                  min="1"
+                  max="50"
+                  [value]="element.lastName"
+                  [(ngModel)]="element.lastName"
+                  #lastNameInput="ngModel">
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
