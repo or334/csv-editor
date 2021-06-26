@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, retry } from 'rxjs/internal/operators';
 import { IPerson } from '../class/person';
@@ -9,7 +10,8 @@ import { CSV_API } from '../consts/consts';
 @Injectable()
 export class CsvEditorService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+    private _snackBar: MatSnackBar) { }
 
   private _usersList$ = new Subject<IPersonList>();
 
@@ -30,7 +32,11 @@ export class CsvEditorService {
   updatePersons(persons: IPerson[]) {
     return this._http.put(`https://localhost:5001/api/v1/csv/update-persons`, persons).pipe(
       retry(3), catchError(this.handleError<IPerson[]>('getPersons')))
-      .subscribe(result => console.log(result));
+      .subscribe(result => {
+        if (result) {
+          this._snackBar.open('CSV update successully! :)');
+        }
+      });
   }
 
   /**
@@ -41,14 +47,11 @@ export class CsvEditorService {
   */
    private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      this._snackBar.open(error);
       console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
 
       return of(result as T);
     };
   }
 
-  private log(message: string) {
-    console.log(message);
-  }
 }

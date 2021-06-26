@@ -23,8 +23,8 @@ namespace csv_editor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IContext, CsvContext>();
-            services.AddTransient<IRepository, CsvRepository>();
+            services.AddSingleton<IContext, CsvContext>();
+            services.AddSingleton<IRepository, CsvRepository>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

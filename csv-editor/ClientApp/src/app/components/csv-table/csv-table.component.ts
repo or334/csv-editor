@@ -27,8 +27,8 @@ export class CsvTableComponent implements OnInit {
     this._initPersons();
   }
 
-  // Get the users list when the component is loading.
-  private async _initPersons() {
+  // Get the users persons when the component is loading.
+  private _initPersons() {
     this._csvService.getPersons()
     .subscribe( data => {
       this.personsCopy = JSON.parse(JSON.stringify(data));
@@ -36,12 +36,13 @@ export class CsvTableComponent implements OnInit {
     })
   }
 
+  // Toggle switch of edit mode
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
-    console.log(this.isEditMode)
   }
 
   saveChanges() {
+    // Check for invalid parameters
     const emptyFieldsInTable = this.dataSource.data.filter( person => person.firstName.length === 0 || person.lastName.length === 0);
     if (emptyFieldsInTable.length > 0) {
       this._snackBar.open(`You can't have empty fields! Please change and try again.`);
@@ -53,17 +54,19 @@ export class CsvTableComponent implements OnInit {
       this._snackBar.open(`You can't have a field with more than 50 chars! Please change and try again.`);
       return;
     }
-    if (this.arraysEqual(this.dataSource.data, this.personsCopy)) {
+
+    // Check if array are different
+    if (this._arraysEqual(this.dataSource.data, this.personsCopy)) {
       this._snackBar.open(`Please change some data.`);
       return;
     }
-    this.personsCopy = this.dataSource.data;
+    this.personsCopy = JSON.parse(JSON.stringify(this.dataSource.data));
     this._csvService.updatePersons(this.personsCopy);
     this.toggleEditMode();
   }
 
-  arraysEqual(a1,a2) {
+  private _arraysEqual(a1,a2) {
     return JSON.stringify(a1)==JSON.stringify(a2);
-}
+  }
 
 }

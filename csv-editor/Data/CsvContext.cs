@@ -47,10 +47,28 @@ namespace csv_editor.Data
             using (var streamWriter = new StreamWriter(PATH_OF_CSV_FILE))
             {
                 using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
-                { 
-                    await csvWriter.WriteRecordsAsync(records).ConfigureAwait(false);
-                    await csvWriter.FlushAsync().ConfigureAwait(false);
-                    return true;
+                {
+                    try
+                    {
+                        await csvWriter.WriteRecordsAsync(records).ConfigureAwait(false);
+                        await csvWriter.FlushAsync().ConfigureAwait(false);
+                        return true;
+                    }
+                    catch (CsvHelperException e)
+                    {
+                        Console.WriteLine($"{e.Message} " + (e.InnerException == null ? string.Empty : e.InnerException.Message));
+                        throw;
+                    }
+                    catch (IOException ex)
+                    {
+                        Console.WriteLine($"{ex.Message} " + (ex.InnerException == null ? string.Empty : ex.InnerException.Message));
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{ex.Message} " + (ex.InnerException == null ? string.Empty : ex.InnerException.Message));
+                        throw;
+                    }
                 }
             }
         }
