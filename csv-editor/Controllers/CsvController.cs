@@ -43,7 +43,7 @@ namespace csv_editor.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
-        }
+        } 
 
         [HttpPut]
         [Route("update-persons")]

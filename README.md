@@ -10,7 +10,7 @@ The server side is implemented using .NET Core 5.0 in Microservice Architecture.
 * IRepository is responsible for storing the information from the CSV and additional information that will be used for testing.
 * CsvController contains the endpoint for HTTP calls. It returns a HTTP reponse for the proper scenario.
 
-To run the project, select Visual Studio Pro You are the project name, and then the project will start running, until it opens a new tab in the browser that will display the data.
+To run the project, select Visual Studio 2019, pick up the project name, and then the project will start running, until it opens a new tab in the browser that will display the data. In the first run, it'll take few minutes :)
 
 # Client Side
 
