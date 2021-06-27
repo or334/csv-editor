@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace csv_editor.Repository
 {
+    /// <summary>
+    /// This class / service is reponsible to call the IContext class,
+    /// Which injected here using DI, and also managed some info regarding
+    /// The CSV file, that will be used by the controller to make some validations.
+    /// </summary>
     public class CsvRepository : IRepository
     {
         public int RowsLength { get; set; }

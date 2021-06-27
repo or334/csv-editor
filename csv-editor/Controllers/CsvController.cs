@@ -12,6 +12,13 @@ using System.Threading.Tasks;
 
 namespace csv_editor.Controllers
 {
+    /// <summary>
+    /// This is the controller of the project,
+    /// Containing 2 methods:
+    /// One to get the list of persons from CSV,
+    /// And one to update the CSV.
+    /// Each method returns a status code, regarding the situation.
+    /// </summary>
     [Route("api/v1/csv")]
     [ApiController]
     public class CsvController : ControllerBase

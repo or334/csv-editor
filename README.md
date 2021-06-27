@@ -28,3 +28,7 @@ To avoid unpleasant situations, I have included a number of different validation
 * A user cannot "save" information to CSV if he has not made any changes.
 * A user can not delete or add new information, because only editing can be performed.
 * As soon as there is an error message, or success in saving the information to a CSV file, a suitable message will be displayed to the user at the bottom of the screen :)
+
+# Used external libararies
+* CsvHelper - A .NET library for reading and writing CSV files.
+https://joshclose.github.io/CsvHelper/
